@@ -1,1 +1,2 @@
-# automaticDoubleQuotation
+### chromeの簡単な拡張機能
+検索窓のテキストを選択中に `shift + "` で、選択したテキストを `"` で囲えるようにした。
