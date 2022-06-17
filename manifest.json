@@ -1,7 +1,7 @@
 {
   "name": "automaticDoubleQuotation",
   "version": "1.0.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "テキスト選択中に shift + \" で囲まれるようにする",
   "content_scripts": [{
     "matches": [ "http://*/*", "https://*/*" ],
