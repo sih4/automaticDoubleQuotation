@@ -1,12 +1,33 @@
-const searchElem = document.querySelector("input[name='q'].gLFyf");
-if(document.URL.match("https://www.google.com/search")) {
-  document.addEventListener('keydown', event => {
-    const selectText = window.getSelection().toString();
-    if (event.shiftKey && event.code === 'Digit2' && selectText.length) {
-      event.preventDefault();
-      const searchElemValue = searchElem.value;
-      const replaceText = searchElemValue.replace(selectText, `"${selectText}"`)
-      searchElem.value = replaceText;
-    }
-  })
+// URLチェックとイベントリスナー登録を関数化
+function addQuoteToSelectionOnGoogle() {
+  if (!document.URL.includes("https://www.google.com")) return;
+
+  document.addEventListener("keydown", handleQuoteWrapping);
 }
+
+function handleQuoteWrapping(event) {
+  // 事前に定義されたキーと選択テキストの存在を確認
+  if (event.shiftKey && event.code === "Quote" && window.getSelection().toString().length) {
+    event.preventDefault();
+    wrapTextWithQuotes();
+  }
+}
+
+function wrapTextWithQuotes() {
+  const searchElem = document.querySelector("textarea[name='q'].gLFyf");
+  const selectedText = window.getSelection().toString();
+
+  // 選択テキストを引用符で囲む
+  const wrappedText = `"${selectedText}"`;
+  searchElem.value = searchElem.value.replace(selectedText, wrappedText);
+
+  // カーソルの位置を調整
+  positionCursorAfterWrappedText(searchElem, wrappedText);
+}
+
+function positionCursorAfterWrappedText(element, text) {
+  const cursorPosition = element.value.indexOf(text) + text.length;
+  element.setSelectionRange(cursorPosition, cursorPosition);
+}
+
+addQuoteToSelectionOnGoogle();
